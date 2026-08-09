@@ -9,7 +9,7 @@ export function App() {
             <Button>C++</Button>
             <Button>Javascript</Button>
             <Button>Python</Button>
-            <Button className="bg-gray-200 text-black hover:text-red-500 ml-20">Submit</Button>
+            <Button className="ml-30">Submit</Button>
         </div>
       </div>
     
