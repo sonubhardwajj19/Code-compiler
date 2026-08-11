@@ -1,8 +1,6 @@
 import { createClient } from "redis";
 import fs from "fs";
 import { spawn } from "child_process";
-import { file } from "bun";
-import { exitCode } from "process";
 
 const client = createClient();
  client.connect()
@@ -29,6 +27,7 @@ const client = createClient();
                 console.log("Output : ",chunk.toString())
             })
 
+          
             console.log("Now processing your ",parsedResponse.language , "code");
             await new Promise ((r) => setTimeout(r,5000));
         }
@@ -41,9 +40,10 @@ const client = createClient();
             fs.writeFileSync(filePath,code);
           
             const responseCompiler = spawn("node",[filePath]);
-               responseCompiler.stdout.on("data",(chunk)=>{
+            responseCompiler.stdout.on("data",(chunk)=>{
                 console.log(" Js Output => ",chunk.toString());
-               })
+            })
+
             console.log("Now processing your ",parsedResponse.language , "code");
             await new Promise ((r) => setTimeout(r,2000));
         }
@@ -54,10 +54,11 @@ const client = createClient();
             const filePath = __dirname + "/code/code.py";
             fs.writeFileSync(filePath,code);
              
-            const responseCompiler = spawn("python3",[filePath]);
+            const responseCompiler = spawn("python",[filePath]);
             responseCompiler.stdout.on("data",(chunk)=>{
                 console.log("Python output : " , chunk.toString());
             })
+
             console.log("Now processing your ",parsedResponse.language , "code");
             await new Promise ((r) => setTimeout(r,2000));
         }
