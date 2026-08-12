@@ -1,1 +1,1 @@
-console.log("hello");
+print("You reach there");

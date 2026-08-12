@@ -5,11 +5,16 @@ import axios from "axios";
 
 
 const BACKEND_URL = "http://localhost:3000";
+
 export function App() {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [status,setStatus] = useState("");
   const [output,setOutput] = useState("");
   const [selectedLanguage,setSelectedLanguage] = useState("");
+  async function pollBackend(submissionId:string){
+    const response = await axios.get(`${BACKEND_URL}/submit/:${submissionId}`);
+    console.log(response)
+  }
   return (<>
     <div>
       <div className="flex bg-zinc-600 p-3">
@@ -26,8 +31,9 @@ export function App() {
                  "language":selectedLanguage
               })
 
-              console.log(response);
-              
+              console.log(response.data.id);
+
+            pollBackend(response.data.id);          
            
 
             }} className="ml-30" >Submit</Button>
