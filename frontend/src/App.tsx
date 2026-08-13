@@ -12,14 +12,23 @@ export function App() {
   const [output,setOutput] = useState("");
   const [selectedLanguage,setSelectedLanguage] = useState("");
   async function pollBackend(submissionId:string){
-    const response = await axios.get(`${BACKEND_URL}/submit/:${submissionId}`);
-    console.log(response)
+    const response = await axios.get(`${BACKEND_URL}/submit/${submissionId}`)
+
+  
+    if(response.data.status === "Processing"){
+        setStatus(response.data.submissions.status);
+        setOutput(response.data.submissions.output);
+    } else {
+      pollBackend(submissionId)
+    }
+    
+   
   }
   return (<>
     <div>
       <div className="flex bg-zinc-600 p-3">
         <div className="flex gap-4">
-            <Button variant={selectedLanguage === "cpp" ? "destructive" : "outline"} onClick={() => setSelectedLanguage("cpp")}>C++</Button>
+            <Button variant={selectedLanguage === "c++" ? "destructive" : "outline"} onClick={() => setSelectedLanguage("c++")}>C++</Button>
             <Button variant={selectedLanguage ==="js" ? "destructive" : "outline"} onClick={()=>{setSelectedLanguage("js")}}>Javascript</Button>
             <Button variant={selectedLanguage ==="py" ? "destructive" : "outline"} onClick={()=>setSelectedLanguage("py")}>Python</Button>
             <Button onClick={async()=>{
@@ -32,8 +41,7 @@ export function App() {
               })
 
               console.log(response.data.id);
-
-            pollBackend(response.data.id);          
+              pollBackend(response.data.id);          
            
 
             }} className="ml-30" >Submit</Button>
@@ -46,6 +54,7 @@ export function App() {
         </div>
         <div className="bg-green-300 flex-1">
           {output}
+          {status}
         </div>
       </div>
     </div>
