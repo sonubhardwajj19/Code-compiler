@@ -14,7 +14,6 @@ datasource db {
 
 
 
-
 model Submissions {
   id         String     @id  @default(uuid())
   code       String

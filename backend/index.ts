@@ -3,7 +3,6 @@ import { createClient } from "redis";
 import cors from "cors";
 import { prisma } from "./db";
 
-
 const app = express();
 app.use(express.json());
 
@@ -25,13 +24,13 @@ app.post ("/submit",async (req,res) => {
                 status : "Processing"
             }
         })
-        await client.lPush("problems",JSON.stringify({submissionId: response.id, code, language}));
+        await client.lPush("problems",JSON.stringify({ submissionId:response.id,code, language}));
     
         res.json({
             msg : "Your request is being processed" ,
-            id : response.id
+            id :response.id
         })
-        console.log(response.id)
+    
     } catch (err) {
         console.log(err);
     }
