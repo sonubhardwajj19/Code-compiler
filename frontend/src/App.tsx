@@ -29,6 +29,7 @@ export function App() {
             <Button variant={selectedLanguage === "c++" ? "destructive" : "outline"} onClick={() => setSelectedLanguage("c++")}>C++</Button>
             <Button variant={selectedLanguage ==="js" ? "destructive" : "outline"} onClick={()=>{setSelectedLanguage("js")}}>Javascript</Button>
             <Button variant={selectedLanguage ==="py" ? "destructive" : "outline"} onClick={()=>setSelectedLanguage("py")}>Python</Button>
+    
             <Button onClick={async()=>{
               setStatus("Processing");
               setOutput("");
@@ -47,21 +48,22 @@ export function App() {
         <div className="bg-red-100 flex-1">
           <textarea className="w-full h-full p-5 text-lg" ref={textRef}/>
         </div>
-        <div className="bg-gray-600 flex-1 p-5 text-lg font-bold">
-          <div  className= "flex text-gray-300">
+
+        <div className="bg-gray-700 flex-1 p-5 text-lg font-bold overflow-hidden">
+          <span  className= "flex text-gray-300">
              Status <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 20 24" stroke-width="1.5" stroke="currentColor" className="size-8 mr-5 ml-3">
                        <path stroke-linecap="round"  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H5" />
                     </svg>
-                    <div className={status=== "Failure" ? "text-red-300" : "text-green-500"}>
+                    <span className={status=== "Failure" ? "text-red-300" : "text-green-500"}>
                        {status}
-                    </div>
-          </div>
-          <div className="mt-5">
-            <div className="text-gray-300">
+                    </span>
+          </span>
+          <div className="w-full h-full p-6">
+            <span className="text-gray-300">
                Final Output :
-            </div>
-            <div className={status === "Failure" ? "text-red-300" : "text-yellow-400"}>
-                {output}
+            </span>
+            <div  className={`p-2 border h-full w-full${status === "Failure" ? "text-red-300" : "text-yellow-400"}`}>
+                  {output}
             </div>
           </div>
         </div>

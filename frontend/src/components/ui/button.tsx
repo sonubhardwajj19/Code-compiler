@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gray-700 text-primary-foreground hover:text-yellow-500",
+        default: "bg-gray-700 text-primary-foreground hover:text-yellow-500 hover:bg-gray-800 hover:translate-y-0.5",
         destructive:
-          "bg-white text-black hover:bg-destructive/90focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-white text-black  hover:bg-destructive/90focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "bg-gray-700 text-white shadow-xs  hover:text-yellow-500 dark:bg-input/30 dark:border-input",
+          "bg-gray-700 text-white shadow-xs  hover:bg-gray-800  hover:text-yellow-500 dark:bg-input/30 dark:border-input hover:translate-y-0.5",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -43,7 +43,7 @@ function Button({
   }) {
   const Comp = asChild ? Slot : "button";
 
-  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className })) } {...props} />;
 }
 
 export { Button, buttonVariants };
