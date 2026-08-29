@@ -29,24 +29,25 @@ export function App() {
             <Button variant={selectedLanguage === "c++" ? "destructive" : "outline"} onClick={() => setSelectedLanguage("c++")}>C++</Button>
             <Button variant={selectedLanguage ==="js" ? "destructive" : "outline"} onClick={()=>{setSelectedLanguage("js")}}>Javascript</Button>
             <Button variant={selectedLanguage ==="py" ? "destructive" : "outline"} onClick={()=>setSelectedLanguage("py")}>Python</Button>
-    
+          
             <Button onClick={async()=>{
-              setStatus("Processing");
-              setOutput("");
-                 
-              const response = await axios.post(`${BACKEND_URL}/submit`, {
-                 "code": textRef.current?.value ,
-                 "language":selectedLanguage
-              })
-
-              pollBackend(response.data.id);
+                setStatus("Processing");
+                setOutput("");
+                   
+                const response = await axios.post(`${BACKEND_URL}/submit`, {
+                   "code": textRef.current?.value ,
+                   "language":selectedLanguage
+                })
+  
+                pollBackend(response.data.id);
+              
             }} className="ml-30" >Submit</Button>
         </div>
       </div>
     
       <div className="flex h-screen w-screen">
-        <div className="bg-red-100 flex-1">
-          <textarea className="w-full h-full p-5 text-lg" ref={textRef}/>
+        <div className="flex-1">
+          <textarea className="w-full h-full p-5 text-lg bg-zinc-500" ref={textRef}/>
         </div>
 
         <div className="bg-gray-700 flex-1 p-5 text-lg font-bold overflow-hidden">
@@ -58,11 +59,11 @@ export function App() {
                        {status}
                     </span>
           </span>
-          <div className="w-full h-full p-6">
+          <div className="w-full h-full p-6 ">
             <span className="text-gray-300">
                Final Output :
             </span>
-            <div  className={`p-2 border h-full w-full${status === "Failure" ? "text-red-300" : "text-yellow-400"}`}>
+            <div  className={`p-2 border h-full w-full border-3 border-gray-500 ${status === "Failure" ? "text-red-300" : "text-yellow-400"}`}>
                   {output}
             </div>
           </div>

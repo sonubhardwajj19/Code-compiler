@@ -15,25 +15,30 @@ client.connect();
 app.post ("/submit",async (req,res) => {
     const language = req.body.language;
     const code = req.body.code;
+
+    console.log(code)
+    console.log(language)
+    
+        try {
+            const response = await prisma.submissions.create({
+                 data : {
+                    code : code,
+                    language : language ,
+                    status : "Processing"
+                }
+            })
+            await client.lPush("problems",JSON.stringify({ submissionId:response.id,code, language}));
+        
+            res.json({
+                msg : "Your request is being processed" ,
+                id :response.id
+            })
+        
+        } catch (err) {
+            console.log(err);
+        }
+   
      
-    try {
-        const response = await prisma.submissions.create({
-             data : {
-                code : code,
-                language : language ,
-                status : "Processing"
-            }
-        })
-        await client.lPush("problems",JSON.stringify({ submissionId:response.id,code, language}));
-    
-        res.json({
-            msg : "Your request is being processed" ,
-            id :response.id
-        })
-    
-    } catch (err) {
-        console.log(err);
-    }
 
 })
 
