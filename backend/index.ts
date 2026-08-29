@@ -15,9 +15,6 @@ client.connect();
 app.post ("/submit",async (req,res) => {
     const language = req.body.language;
     const code = req.body.code;
-
-    console.log(code)
-    console.log(language)
     
         try {
             const response = await prisma.submissions.create({
@@ -37,7 +34,6 @@ app.post ("/submit",async (req,res) => {
         } catch (err) {
             console.log(err);
         }
-   
      
 
 })

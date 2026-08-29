@@ -2,7 +2,7 @@ import { createClient } from "redis";
 import fs from "fs";
 import { spawn } from "child_process";
 import { prisma } from "./db";
-import { resolve } from "dns";
+import { pathToFileURL } from "url";
  
  const client = createClient();
   client.connect()
@@ -22,7 +22,27 @@ import { resolve } from "dns";
            let compilerError = "";
            let exitCodeCompiler = null;
            
-
+           if(language === ""){
+               await prisma.submissions.update({
+                            where:{
+                                id :submissionId
+                            } , 
+                            data :{
+                                status : "Failure" ,
+                                output :"Select language before submitting code"
+                            }
+                         })
+            } else if (code === ""){
+                await prisma.submissions.update({
+                            where:{
+                                id :submissionId
+                            } , 
+                            data :{
+                                status : "Failure" ,
+                                output :"Write code before submitting"
+                            }
+                         })
+          } else {
 
            if(language === "c++") {
             const filePath = __dirname + "/code/code.cpp";
@@ -95,7 +115,9 @@ import { resolve } from "dns";
 
 
            if(language === "js"){
-            const filePath = __dirname + "/code/a.js";
+            const filePath = __dirname + "\\code\\a.js";
+            const urlpath = pathToFileURL(filePath)   // because our filepath and node.js way of diaplaying path is different
+        
             fs.writeFileSync(filePath,code);
             const responseCompiler = spawn("node",[filePath])    
             
@@ -107,14 +129,12 @@ import { resolve } from "dns";
                 finalOutput += chunk.toString()
             })
 
-            console.log(finalOutput)
-
-            console.log(compilerError)
-
+          
             await new Promise<void> (resolve => {
                 responseCompiler.on("close", async (exitCode)=>{
+                
                     if(exitCode !== 0){
-                          compilerError = compilerError.replaceAll("///C:/Users/asus/Desktop/KOD/cohort%20%20L/week-24-leetcode/worker/code/a.js:1","");
+                         compilerError = compilerError.replaceAll(urlpath.href, "");
 
                           await prisma.submissions.update({
                             where:{
@@ -146,9 +166,6 @@ import { resolve } from "dns";
 
 
 
-
-
-           
 
            if(language === "py"){
             const filePath = __dirname + "/code/p.py";
@@ -195,6 +212,7 @@ import { resolve } from "dns";
 
            }
 
+          }
 
         }
     })

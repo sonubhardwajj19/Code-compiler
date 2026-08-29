@@ -24,7 +24,7 @@ export function App() {
   }
   return (<>
     <div>
-      <div className="flex bg-black p-3">
+      <div className="flex bg-gray-900 p-3 justify-between">
         <div className="flex gap-4">
             <Button variant={selectedLanguage === "c++" ? "destructive" : "outline"} onClick={() => setSelectedLanguage("c++")}>C++</Button>
             <Button variant={selectedLanguage ==="js" ? "destructive" : "outline"} onClick={()=>{setSelectedLanguage("js")}}>Javascript</Button>
@@ -43,6 +43,17 @@ export function App() {
               
             }} className="ml-30" >Submit</Button>
         </div>
+
+        <span className="inline-flex items-center gap-1 select-none mr-5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500 text-xl font-black text-white">
+              U
+            </span>
+
+            <span className="text-[23px] font-bold tracking-[-0.8px] text-slate-900">
+              Compile
+            </span>
+      </span>
+
       </div>
     
       <div className="flex h-screen w-screen">
@@ -63,7 +74,7 @@ export function App() {
             <span className="text-gray-300">
                Final Output :
             </span>
-            <div  className={`p-2 border h-full w-full border-3 border-gray-500 ${status === "Failure" ? "text-red-300" : "text-yellow-400"}`}>
+            <div  className={`p-2 border w-full border-3 rounded-lg border-stone-600 ${status === "Failure" ? "text-red-300" : "text-yellow-500"}`}>
                   {output}
             </div>
           </div>
