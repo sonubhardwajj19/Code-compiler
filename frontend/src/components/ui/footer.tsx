@@ -1,6 +1,6 @@
 export  function Footer() {
     return <>
-     <div className="bg-gray-950 h-80 border-t-2 flex flex-col items-center justify-center gap-2"> 
+     <div className="bg-gray-950 h-100 border-t-2 flex flex-col items-center justify-center gap-2"> 
          <span className="inline-flex gap-1 select-none mr-5">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500 text-xl font-black text-white">
                 U
@@ -9,7 +9,7 @@ export  function Footer() {
                 Compile
               </span>
          </span>
-    <span className="text-normal text-gray-300"> 
+    <span className="text-normal text-gray-400"> 
         “If it works, good. If it doesn’t, we don’t talk about it.”
     </span>
     </div>

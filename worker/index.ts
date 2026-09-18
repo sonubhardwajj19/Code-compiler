@@ -44,7 +44,7 @@ import { pathToFileURL } from "url";
                          })
           } else {
 
-           if(language === "c++") {
+           if(language === "cpp") {
             const filePath = __dirname + "/code/code.cpp";
             fs.writeFileSync(filePath,code);
             const responseCompiler = spawn("g++",[filePath,"-o","./code/out"]);
@@ -114,7 +114,7 @@ import { pathToFileURL } from "url";
 
 
 
-           if(language === "js"){
+           if(language === "javascript"){
             const filePath = __dirname + "\\code\\a.js";
             const urlpath = pathToFileURL(filePath)   // because our filepath and node.js way of diaplaying path is different
         
@@ -167,7 +167,7 @@ import { pathToFileURL } from "url";
 
 
 
-           if(language === "py"){
+           if(language === "python"){
             const filePath = __dirname + "/code/p.py";
             fs.writeFileSync(filePath,code);
             const responseCompiler = spawn("python",[filePath])    
