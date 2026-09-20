@@ -18,6 +18,7 @@ model Submissions {
   id         String     @id  @default(uuid())
   code       String
   language   String
+  input      String?
   status     SubmissionStatus  @default(Processing)
   output     String?
 }

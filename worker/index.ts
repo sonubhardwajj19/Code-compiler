@@ -18,6 +18,9 @@ import { pathToFileURL } from "url";
            const code = parsedResponse.code; 
            const language = parsedResponse.language;
            const submissionId = parsedResponse.submissionId;
+           const input = parsedResponse.input;
+    
+
            let finalOutput = "";
            let compilerError = "";
            let exitCodeCompiler = null;
@@ -72,6 +75,7 @@ import { pathToFileURL } from "url";
                     }
                     resolve()
                 })
+
             })
             
             if(exitCodeCompiler !==0){
@@ -82,6 +86,9 @@ import { pathToFileURL } from "url";
             response.stdout.on("data",(chunk) => {
                  finalOutput += chunk.toString()
             })
+
+            response.stdin.write(input || " ");
+            response.stdin.end();
 
             await new Promise<void> (resolve=>{
                response.on("close",async (exitCode)=>{
@@ -129,6 +136,8 @@ import { pathToFileURL } from "url";
                 finalOutput += chunk.toString()
             })
 
+            responseCompiler.stdin.write(input || " ");
+            responseCompiler.stdin.end();
           
             await new Promise<void> (resolve => {
                 responseCompiler.on("close", async (exitCode)=>{
@@ -179,6 +188,9 @@ import { pathToFileURL } from "url";
             responseCompiler.stdout.on("data", (chunk)=> {
                 finalOutput += chunk.toString()
             })
+
+            responseCompiler.stdin.write(input || " ");
+            responseCompiler.stdin.end();
             
             await new Promise<void> (resolve => {
                 responseCompiler.on("close", async (exitCode)=>{

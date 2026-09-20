@@ -2,11 +2,9 @@
  using namespace std;
 
  int main() {
-    
-     cout << "Hello, World! there form c towp" << endl;
-     for (int i =0 ; i <10;i++){
-        cout << i << endl;
-     }
+   char name[40];
+   cin >> name;
+   cout << name;
     
      return 0;
  }

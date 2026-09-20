@@ -11,14 +11,12 @@ const BACKEND_URL = "http://localhost:3000";
 
 export function App() {
   // const textRef = useRef<HTMLTextAreaElement>(null);
-const [code, setCode] = useState("");
-   function handleEditorChange(value) {
-          setCode(value);  
-  }
-
+  const [code, setCode] = useState("");
   const [status,setStatus] = useState("");
   const [output,setOutput] = useState("");
+  const [input,setInput] = useState("");
   const [selectedLanguage,setSelectedLanguage] = useState("");
+
   async function pollBackend(submissionId:string){
     const response = await axios.get(`${BACKEND_URL}/submit/${submissionId}`)
 
@@ -44,7 +42,8 @@ const [code, setCode] = useState("");
                     
                   const response = await axios.post(`${BACKEND_URL}/submit`, {
                     "code": code ,
-                    "language":selectedLanguage
+                    "input": input,
+                    "language":selectedLanguage 
                   })
     
                   pollBackend(response.data.id);
@@ -72,7 +71,12 @@ const [code, setCode] = useState("");
             {/* <textarea className="w-full h-full p-5 text-lg bg-zinc-500 outline-none text-white font-normal" ref={textRef}>
           
             </textarea> */}
-            <Editor  theme="vs-dark" language={selectedLanguage}  onChange={handleEditorChange}></Editor>
+            <Editor  theme="vs-dark" language={selectedLanguage}  
+                onChange={(chunk:any)=>{
+                  setCode(chunk)
+
+                }}>
+            </Editor>
           </div>
 
 
@@ -90,7 +94,10 @@ const [code, setCode] = useState("");
              <div className="mb-4 mt-2">
                 <span className="font-normal text-gray-200 text-base p-1"> If your code takes input, add it in the box below before running.</span>
                   <div className="border border-gray-600 p-0 w-full h-35 font-normal text-white bg-gray-900">
-                      <textarea  className="w-full h-full p-3"></textarea>
+                      <textarea  className="w-full h-full p-3 " 
+                          onChange={(e:any)=>{
+                            setInput(e.target.value)}}>
+                      </textarea>
                   </div>
              </div>
 
