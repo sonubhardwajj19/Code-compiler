@@ -64,14 +64,12 @@ export function App() {
     
 
     
-      <div className="flex h-screen w-screen">
+      <div className="flex h-screen w-screen gap-1 bg-black">
         {/* left input area */}
       
           <div className="flex-1">
-            {/* <textarea className="w-full h-full p-5 text-lg bg-zinc-500 outline-none text-white font-normal" ref={textRef}>
-          
-            </textarea> */}
-            <Editor  theme="vs-dark" language={selectedLanguage}  
+            <Editor  className="border border-gray-500"  
+                theme="vs-dark" language={selectedLanguage}  
                 onChange={(chunk:any)=>{
                   setCode(chunk)
 
@@ -81,7 +79,7 @@ export function App() {
 
 
           {/* right part  */}
-          <div className="bg-gray-800 flex-1 p-5  overflow-hidden ">
+          <div className="bg-gray-800 flex-1 p-5  overflow-hidden border border-gray-500">
 
             <span  className= "flex text-normal text-gray-200 pl-1">
               Status :
@@ -93,8 +91,8 @@ export function App() {
              
              <div className="mb-4 mt-2">
                 <span className="font-normal text-gray-200 text-base p-1"> If your code takes input, add it in the box below before running.</span>
-                  <div className="border border-gray-600 p-0 w-full h-35 font-normal text-white bg-gray-900">
-                      <textarea  className="w-full h-full p-3 " 
+                  <div className="border-2 border-gray-500 p-0 w-full h-35 font-normal text-white bg-gray-900 ">
+                      <textarea  className="w-full h-full p-3" 
                           onChange={(e:any)=>{
                             setInput(e.target.value)}}>
                       </textarea>
